@@ -1,0 +1,4 @@
+[DEV]
+ignore-paths=(.*/migrations/.*|venv)
+ignore-patterns=manage.py
+disable=C0114,C0115,C0116

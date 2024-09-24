@@ -43,7 +43,6 @@ repos:
       entry: ./venv/bin/pylint
       language: system
       types: [python]
-      args: [--ignore-patterns=manage.py, --ignore-paths=venv]
 
   - repo: https://github.com/PyCQA/autoflake
     rev: v2.3.1
