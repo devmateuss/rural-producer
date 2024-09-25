@@ -1,6 +1,27 @@
 version: '3.9'
 
 services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django-app
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=rural-producer
+      - DB_USER=myuser
+      - DB_PASSWORD=mypassword
+
   db:
     image: postgres:15
     container_name: postgres-db

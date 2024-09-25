@@ -1,7 +1,9 @@
+
 VENV_DIR = venv
 PYTHON = python3
 PIP = $(VENV_DIR)/bin/pip
 DJANGO_MANAGE = $(VENV_DIR)/bin/python manage.py
+
 
 create-env:
 	$(PYTHON) -m venv $(VENV_DIR)
@@ -25,3 +27,9 @@ create-app:
 	@read -p "Enter the app name: " app_name; \
 	django-admin startapp $$app_name; \
 	echo "App $$app_name created successfully."
+
+up:
+    docker-compose up --build -d
+
+down:
+    docker-compose down
