@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 from producer.models import Producer
@@ -23,6 +24,17 @@ class Farm(models.Model):
     agricultural_area = models.DecimalField(max_digits=10, decimal_places=3)
     vegetation_area = models.DecimalField(max_digits=10, decimal_places=3)
     planted_crops = models.ManyToManyField("Crop", related_name="farms")
+
+    def clean(self):
+        if self.agricultural_area + self.vegetation_area > self.total_area:
+            raise ValidationError(
+                "A soma da área agrícola e de vegetação \
+                    não pode ser maior que a área total da fazenda."
+            )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
 
 class Crop(models.Model):
